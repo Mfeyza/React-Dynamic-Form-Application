@@ -20,5 +20,5 @@
   }
   
   .button-hovered.animate-button {
-    animation: moveButton 0.2s infinite;
+    animation: moveButton 0.1s infinite;
   }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 const Forms = () => {
   const [data, setData] = useState({
@@ -17,12 +17,13 @@ const Forms = () => {
   const [buttonClicked, setButtonClicked] = useState(false);
   const [animationClass, setAnimationClass] = useState("");
   const [isButtonHovered, setIsButtonHovered] = useState(false);
+  const buttonRef = useRef(null);
 
   const { mail, username, firstname, lastname, img, password } = data;
 
   useEffect(() => {
     const isValidData = validateData();
-    setButtonDisabled(isValidData);
+    setButtonDisabled(!isValidData);
   }, [data]);
 
   const validateData = () => {
@@ -32,8 +33,7 @@ const Forms = () => {
       mail !== "" &&
       username !== "" &&
       firstname !== "" &&
-      lastname !== "" &&
-      true
+      lastname !== ""
     );
   };
 
@@ -85,6 +85,18 @@ const Forms = () => {
     firstname: formData?.firstname || "",
     lastname: formData?.lastname || "",
     img: formData?.img || "",
+  };
+
+  const handleHoverEnter = () => {
+    if (!validateData() && buttonRef.current) {
+      buttonRef.current.style.transform = "translateX(-20px)";
+    }
+  };
+
+  const handleHoverLeave = () => {
+    if (!validateData() && buttonRef.current) {
+      buttonRef.current.style.transform = "translateX(0)";
+    }
   };
 
   return (
@@ -178,15 +190,22 @@ const Forms = () => {
             </button>
           </div>
 
-<button
-  type="submit"
-  className={`btn btn-success animate-button ${buttonClicked || !validateData() ? 'disabled' : ''} ${isButtonHovered ? 'button-hovered' : ''}`}
-  style={{ cursor: buttonClicked || !validateData() ? "not-allowed" : "pointer" }}
-  onMouseEnter={() => setIsButtonHovered(true)}
-  onMouseLeave={() => setIsButtonHovered(false)}
->
-  {buttonClicked ? "Processing..." : "Submit"}
-</button>
+          <button
+            ref={buttonRef}
+            type="submit"
+            className={`btn btn-success animate-button`}
+            style={{ cursor: buttonClicked || !validateData() ? "not-allowed" : "pointer" }}
+            onMouseEnter={() => {
+              setIsButtonHovered(true);
+              handleHoverEnter();
+            }}
+            onMouseLeave={() => {
+              setIsButtonHovered(false);
+              handleHoverLeave();
+            }}
+          >
+            {buttonClicked ? "Processing..." : "Submit"}
+          </button>
         </form>
 
         {showCard && (

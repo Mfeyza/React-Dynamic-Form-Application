@@ -91,7 +91,7 @@ const Forms = () => {
     <div>
       <div className={`d-flex align-items-center justify-content-center flex-column gap-5 ${animationClass}`}>
         <form onSubmit={handleFormSubmit} className='container mt-5 ' style={{ width: "40rem" }}>
-          <div className="input-group input-group-sm mb-3" style={{ height: "2.5rem" }}>
+          <div className="input-group input-group-sm mb-3" style={{ height: "2.4rem" }}>
             <span className="input-group-text" id="inputGroup-sizing-sm">Email-Adress</span>
             <input
               type="email"

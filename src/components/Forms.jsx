@@ -89,7 +89,7 @@ const Forms = () => {
 
   const handleHoverEnter = () => {
     if (!validateData() && buttonRef.current) {
-      buttonRef.current.style.transform = "translateX(-20px)";
+      buttonRef.current.style.transform = "translateX(-80px)";
     }
   };
 

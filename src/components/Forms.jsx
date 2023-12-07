@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const Forms = () => {
   const [data, setData] = useState({
@@ -12,8 +12,30 @@ const Forms = () => {
 
   const [showCard, setShowCard] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [formData, setFormData] = useState(null);
+  const [buttonDisabled, setButtonDisabled] = useState(true);
+  const [buttonClicked, setButtonClicked] = useState(false);
+  const [animationClass, setAnimationClass] = useState("");
+  const [isButtonHovered, setIsButtonHovered] = useState(false);
 
   const { mail, username, firstname, lastname, img, password } = data;
+
+  useEffect(() => {
+    const isValidData = validateData();
+    setButtonDisabled(isValidData);
+  }, [data]);
+
+  const validateData = () => {
+    return (
+      password.length >= 8 &&
+      img.startsWith("http") &&
+      mail !== "" &&
+      username !== "" &&
+      firstname !== "" &&
+      lastname !== "" &&
+      true
+    );
+  };
 
   const handleData = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
@@ -27,24 +49,30 @@ const Forms = () => {
       return;
     }
 
-    if (e.target.name === "img" && !data.img.startsWith("http")) {
+    if (!data.img.startsWith("http")) {
       alert("Image URL must start with 'http' or 'https'");
       return;
     }
-    
 
-    // Verileri temizle
-    setShowCard(true) 
-    setData({
-      mail: "",
-      username: "",
-      firstname: "",
-      lastname: "",
-      img: "",
-      password: "",
-    });
+    setButtonClicked(true);
+    setAnimationClass("animate");
 
-    
+    setTimeout(() => {
+      setShowCard(true);
+      setFormData({ ...data });
+      setData({
+        mail: "",
+        username: "",
+        firstname: "",
+        lastname: "",
+        img: "",
+        password: "",
+      });
+
+      setButtonDisabled(true);
+      setButtonClicked(false);
+      setAnimationClass("");
+    }, 1000);
   };
 
   const handleShow = () => {
@@ -52,16 +80,16 @@ const Forms = () => {
   };
 
   const cardContent = {
-    mail: data.mail,
-    username: data.username,
-    firstname: data.firstname,
-    lastname: data.lastname,
-    img: data.img,
+    mail: formData?.mail || "",
+    username: formData?.username || "",
+    firstname: formData?.firstname || "",
+    lastname: formData?.lastname || "",
+    img: formData?.img || "",
   };
 
   return (
     <div>
-      <div className='d-flex align-items-center justify-content-center flex-column gap-5'>
+      <div className={`d-flex align-items-center justify-content-center flex-column gap-5 ${animationClass}`}>
         <form onSubmit={handleFormSubmit} className='container mt-5 ' style={{ width: "40rem" }}>
           <div className="input-group input-group-sm mb-3" style={{ height: "2.5rem" }}>
             <span className="input-group-text" id="inputGroup-sizing-sm">Email-Adress</span>
@@ -150,9 +178,15 @@ const Forms = () => {
             </button>
           </div>
 
-           <button type="submit" className="btn btn-success">
-            Submit
-          </button>
+<button
+  type="submit"
+  className={`btn btn-success animate-button ${buttonClicked || !validateData() ? 'disabled' : ''} ${isButtonHovered ? 'button-hovered' : ''}`}
+  style={{ cursor: buttonClicked || !validateData() ? "not-allowed" : "pointer" }}
+  onMouseEnter={() => setIsButtonHovered(true)}
+  onMouseLeave={() => setIsButtonHovered(false)}
+>
+  {buttonClicked ? "Processing..." : "Submit"}
+</button>
         </form>
 
         {showCard && (

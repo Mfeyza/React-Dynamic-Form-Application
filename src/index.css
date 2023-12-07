@@ -1,0 +1,24 @@
+*{
+    margin: 0;
+    padding:0;
+    box-sizing: border-box;
+}
+@keyframes moveButton {
+    0% {
+      transform: translateX(0);
+    }
+    50% {
+      transform: translateX(20px);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+  
+  .animate-button {
+    animation: none;
+  }
+  
+  .button-hovered.animate-button {
+    animation: moveButton 0.2s infinite;
+  }

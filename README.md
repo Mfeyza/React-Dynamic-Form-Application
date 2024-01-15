@@ -1,3 +1,68 @@
+React Dynamic Form Application
+<br>
+Overview
+<br>
+This project is a React-based web application that features a dynamic user input form. It allows users to input their details, which are then displayed on a card. The application includes validation checks,
+
+toggle visibility for passwords, and dynamic UI updates based on user interactions.
+<br>
+Features
+<br>
+Dynamic Form: Allows users to input their email, username, first name, last name, image URL, and password.
+Form Validation: Validates user input for certain conditions (e.g., password length, valid URL).
+Toggle Password Visibility: Users can toggle between showing and hiding their password input.
+Dynamic UI Updates: Button states and form submission feedback are dynamically updated based on user actions.
+Card Display: Upon successful form submission, a card displaying user details is shown.
+Responsive Design: Utilizes Bootstrap for responsive and attractive form and card layouts.
+<br>
+Technology Stack
+React.js: For building the user interface.
+Bootstrap: For styling and responsive design.
+CSS: Custom stylesheets for additional styling.
+
+
+  <img src="./Animationform.gif"  width="90%" height="600" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
